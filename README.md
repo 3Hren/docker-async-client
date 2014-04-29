@@ -1,15 +1,23 @@
 Docker Asynchronous Client
 ==========================
 
-* Using tornado.
+Using tornado inside.
 
+Supported methods:
+
+* Info
+* Containers
+* Images
+* Build
+* Push
+
+
+## Example:
 
 ```python
 from tornado.ioloop import IOLoop
 
 import docker
-
-__author__ = 'Evgeny Safronov <division494@gmail.com>'
 
 
 def handle(future):
@@ -20,9 +28,9 @@ def handle(future):
 if __name__ == '__main__':
     io_loop = IOLoop.instance()
     client = docker.Client()
-    io_loop.add_future(client.info(), handle)
+    future = client.info()
+    io_loop.add_future(future, handle)
     io_loop.start()
-
 ```
 
 
